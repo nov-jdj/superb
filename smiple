@@ -1,0 +1,60 @@
+from flask import Flask, render_template_string
+
+app = Flask(__name__)
+
+html_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Coder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/FullMoon2010.jpg/800px-FullMoon2010.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        #output {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Enter a Name</h2>
+    <input type="text" id="nameInput" placeholder="Type a name">
+    <button onclick="generateWord()">Submit</button>
+    <div id="output"></div>
+    <div style="margin-top: 20px; font-size: 20px;">9:29</div>
+    
+    <script>
+        function generateWord() {
+            const words = ["Flower", "River", "Mountain", "Sky", "Sun", "Moon", "Star"];
+            const colors = ["red", "blue"];
+            const specialText = ["frt mentaleaa", "second mentaleaaaaaaaaaaa", "third mentaleaaaaaa"];
+            const userInput = document.getElementById("nameInput").value;
+            
+            if (userInput === "9:29") {
+                document.getElementById("output").innerHTML = specialText.join("<br>");
+            } else {
+                const randomWord = words[Math.floor(Math.random() * words.length)];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                document.getElementById("output").innerHTML = `<span style="color:${randomColor}">${randomWord}</span>`;
+            }
+        }
+    </script>
+</body>
+</html>
+"""
+
+@app.route('/')
+def home():
+    return render_template_string(html_content)
+
+if __name__ == '__main__':
+    app.run(debug=True)
